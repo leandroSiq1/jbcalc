@@ -1,11 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const views = __dirname + '/views/';
+const ProfileController = require('./controllers/ProfileController');
+const JobController = require('./controllers/JobController');
+const DashboardController = require('./controllers/DashboardController');
 
-router.get('/', (req, res) => res.render(views + "index"));
-router.get('/job', (req, res) => res.render(views + "job"));
-router.get('/job/edit', (req, res) => res.render(views + "job-edit"));
-router.get('/profile', (req, res) => res.render(views + "profile"));
+router.get('/', DashboardController.index);
+
+router.get('/job', JobController.create);
+router.post('/job', JobController.save);
+
+router.get('/job/:id', JobController.show);
+router.post('/job/:id', JobController.update);
+router.post('/job/delete/:id', JobController.delete);
+
+router.get('/profile', ProfileController.index);
+router.post('/profile', ProfileController.update);
 
 module.exports = router;
